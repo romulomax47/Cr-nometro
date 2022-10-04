@@ -7,7 +7,7 @@ let time = document.querySelector('#time')
 let campoHora = document.querySelector('input[type="time"]');
 
 start.addEventListener('click', startTime)
-cancel.addEventListener('click', cancelTime);
+cancel.addEventListener('click', cancelaTime);
 
 let hour;
 let minute;
@@ -18,13 +18,13 @@ let interval;
 window.addEventListener('keyup', () => {
     console.log(KeyboardEvent.code)
 
-    if(event.keyCode == 73){
+    if (event.keyCode == 73) {
         startTime()
-        
+
         return
     }
 
-    if(event.keyCode == 80){
+    if (event.keyCode == 80) {
         pauseTime()
         return
     }
@@ -33,14 +33,14 @@ window.addEventListener('keyup', () => {
 
 function startTime() {
 
-    
+
     if (isPause) {
         countTime()
         start.innerHTML = 'iniciar';
         start.classList.add('start')
         pauseTime()
         isPause = false;
-        
+
     } else {
         setTimes();
         countTime()
@@ -63,31 +63,29 @@ function setTimes() {
     minute = time[1]
     second = time[2];
 
-    time.innerHtml = `${formatTime(hour)}:${formatTime(minute)}:${formatTime(second)}`
+    time.innerHtml = `${formataTime(hour)}:${formataTime(minute)}:${formataTime(second)}`
 
 }
 
 function countTime() {
 
     if (checkTime()) {
-        cancelTime();
+        cancelaTime();
         return false
     }
 
 
     if (second == 0) {
 
-        if(minute == 0){
-            hour = hour - 1 ;
+        if (minute == 0) {
+            hour = hour - 1;
         }
 
         minute == 00 ? minute = 59 : minute = minute - 1;
         second = 59;
     }
 
-
-
-    time.innerHTML = `${formatTime(hour)}:${formatTime(minute)}:${formatTime(second)}`
+    time.innerHTML = `${formataTime(hour)}:${formataTime(minute)}:${formataTime(second)}`
 
     second--;
 
@@ -102,7 +100,7 @@ function pauseTime() {
 
 }
 
-function cancelTime() {
+function cancelaTime() {
 
     campoHora.removeAttribute('disabled')
     clearTimeout(interval)
@@ -120,11 +118,10 @@ function checkTime() {
     if (hour == 00 && minute == 00 && second == 00) {
 
         pauseTime()
-        cancelTime()
-        alert('fim do tempo')
+        cancelaTime()
+        alert('🚨-----FIM DO TEEPO-------🚨')
 
         return true;
-
     }
     else {
         return false
@@ -132,9 +129,10 @@ function checkTime() {
 
 }
 
-function formatTime(time) {
+function formataTime(time) {
     if (time < 10) {
         return `0${time}`
+
     } else {
         return time
     }
