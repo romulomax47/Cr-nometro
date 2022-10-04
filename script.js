@@ -119,7 +119,7 @@ function checkTime() {
 
         pauseTime()
         cancelaTime()
-        alert('🚨-----FIM DO TEEPO-------🚨')
+        alert('🚨-----FIM DO TEMPO-------🚨')
 
         return true;
     }
