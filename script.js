@@ -3,53 +3,62 @@ let pause = document.querySelector('.paulsa');
 let cancel = document.querySelector('.cancelar');
 let time = document.querySelector('#time')
 
+
 //Input Time
 let campoHora = document.querySelector('input[type="time"]');
 
 start.addEventListener('click', startTime)
 cancel.addEventListener('click', cancelaTime);
 
+
 let hour;
 let minute;
 let second;
 let isPause = false;
 let interval;
+let startOn;
 
 window.addEventListener('keyup', () => {
 
     if (event.keyCode == 73) {
+        start.innerHTML = 'PAUSE'
         startTime()
-
         return;
     }
-    
+
     if (event.keyCode == 80) {
 
-        start.innerHTML = 'iniciar';
         pauseTime()
         return;
     }
-    
+
 })
 
 function startTime() {
-    
-    
-    if (isPause) {
-        countTime()
-        start.innerHTML = 'iniciar';
-        start.classList.add('start')
-        pauseTime()
-        isPause = false;
 
-    } else  {
-        countTime()
-        setTimes();
+    if (isPause) {
+
+        start.innerHTML = 'INICIAR'
+        pauseTime()
+
+    } else if (!isPause && startOn) {
 
         campoHora.setAttribute('disabled', 'disabled');
-        start.innerHTML = 'pause';
+
+        start.innerHTML = 'PAUSAR'
         interval = setInterval(countTime, 1000);
         isPause = true;
+
+    } else {
+
+        setTimes()
+
+        start.innerHTML = 'PAUSE'
+        interval = setInterval(countTime, 1000);
+        isPause = true;
+        startOn = true;
+
+
     }
 
 }
@@ -57,23 +66,25 @@ function startTime() {
 
 function setTimes() {
 
-    const time = campoHora.value.split(':').map(Number)
+    const timeInput = campoHora.value.split(':').map(Number)
 
-    hour = time[0];
-    minute = time[1]
-    second = time[2];
+    hour = timeInput[0];
+    minute = timeInput[1]
+    second = timeInput[2];
 
-    time.innerHtml = `${formataTime(hour)}:${formataTime(minute)}:${formataTime(second)}`;
-  
+    time.innerHTML = `${formataTime(hour)}:${formataTime(minute)}:${formataTime(second)}`;
+
+
+    return true;
+
 }
 
 function countTime() {
 
     if (checkTime()) {
         cancelaTime();
-        return false
+        return;
     }
-
 
     if (second == 0) {
 
@@ -85,37 +96,38 @@ function countTime() {
         second = 59;
     }
 
-    time.innerHTML = `${formataTime(hour)}:${formataTime(minute)}:${formataTime(second)}`
+    time.innerHTML = `${formataTime(hour)}:${formataTime(minute)}:${formataTime(second)}`;
 
     second--;
 
 }
 
-
 function pauseTime() {
 
     clearTimeout(interval)
-    start.addEventListener('click', startTime)
+
+    start.innerHTML = 'INICIAR'
     isPause = false;
+    startOn = true;
+
 
 }
 
 function cancelaTime() {
 
-    campoHora.removeAttribute('disabled')
-    clearTimeout(interval)
+    pauseTime()
 
     time.innerHTML = '00:00:00'
-    start.addEventListener('click', startTime)
 
-    start.innerHTML = 'iniciar';
+    campoHora.removeAttribute('disabled')
 
     isPause = false;
+    startOn = false;
 }
 
 function checkTime() {
 
-    if (hour == 00 && minute == 00 && second == 00) {
+    if (hour == 0 && minute == 00 && second == 0) {
 
         pauseTime()
         cancelaTime()
@@ -123,8 +135,9 @@ function checkTime() {
 
         return true;
     }
-    else {
+    else{
         return false
+
     }
 
 }
@@ -133,9 +146,12 @@ function formataTime(time) {
     if (time < 10) {
         return `0${time}`
 
-    } else {
+    } 
+    else{
+
         return time
-    }
+    } 
+    
 }
 
 
