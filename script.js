@@ -47,7 +47,7 @@ function startTime() {
 
         campoHora.setAttribute('disabled', 'disabled');
         start.innerHTML = 'pause';
-        interval = setInterval(countTime, 10);
+        interval = setInterval(countTime, 1000);
         isPause = true;
 
     }
