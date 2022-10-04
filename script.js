@@ -16,24 +16,25 @@ let isPause = false;
 let interval;
 
 window.addEventListener('keyup', () => {
-    console.log(KeyboardEvent.code)
 
     if (event.keyCode == 73) {
         startTime()
 
-        return
+        return;
     }
-
+    
     if (event.keyCode == 80) {
-        pauseTime()
-        return
-    }
 
+        start.innerHTML = 'iniciar';
+        pauseTime()
+        return;
+    }
+    
 })
 
 function startTime() {
-
-
+    
+    
     if (isPause) {
         countTime()
         start.innerHTML = 'iniciar';
@@ -41,15 +42,14 @@ function startTime() {
         pauseTime()
         isPause = false;
 
-    } else {
-        setTimes();
+    } else  {
         countTime()
+        setTimes();
 
         campoHora.setAttribute('disabled', 'disabled');
         start.innerHTML = 'pause';
         interval = setInterval(countTime, 1000);
         isPause = true;
-
     }
 
 }
@@ -63,8 +63,8 @@ function setTimes() {
     minute = time[1]
     second = time[2];
 
-    time.innerHtml = `${formataTime(hour)}:${formataTime(minute)}:${formataTime(second)}`
-
+    time.innerHtml = `${formataTime(hour)}:${formataTime(minute)}:${formataTime(second)}`;
+  
 }
 
 function countTime() {
