@@ -1,2 +1,23 @@
 
-const helper = {}
+export const helper = {
+
+    iniciar(){
+
+    },
+
+    pauser(){
+
+    },
+
+    start(){
+
+    },
+
+    cancelar(){
+
+    },
+
+
+
+}
+
