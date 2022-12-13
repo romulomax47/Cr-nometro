@@ -1,4 +1,4 @@
-let start = document.querySelector('.start');
+let iniciar = document.querySelector('.iniciar');
 let pause = document.querySelector('.paulsa');
 let cancel = document.querySelector('.cancelar');
 let time = document.querySelector('#time')
